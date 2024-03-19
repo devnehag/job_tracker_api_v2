@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_19_121022) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_19_123747) do
   create_table "checklists", force: :cascade do |t|
     t.string "title"
     t.string "details"
@@ -21,11 +21,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_121022) do
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.string "compnayname"
     t.string "status"
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "job_title"
+    t.string "company"
+    t.string "job_description"
+    t.string "company_url"
+    t.date "date"
+    t.string "point_of_contact"
+    t.string "job_reference"
+    t.string "tech_stack"
     t.index ["user_id"], name: "index_jobs_on_user_id"
   end
 
