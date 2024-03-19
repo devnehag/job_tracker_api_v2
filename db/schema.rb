@@ -10,15 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_10_183056) do
-  create_table "users", primary_key: "user_id", force: :cascade do |t|
-    t.string "username", null: false
-    t.string "email", null: false
-    t.string "password_digest", null: false
+ActiveRecord::Schema[7.1].define(version: 2024_03_19_121022) do
+  create_table "checklists", force: :cascade do |t|
+    t.string "title"
+    t.string "details"
+    t.integer "job_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["job_id"], name: "index_checklists_on_job_id"
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "compnayname"
+    t.string "status"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_jobs_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username", default: ""
+    t.string "email", default: ""
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "checklists", "jobs"
+  add_foreign_key "jobs", "users"
 end
