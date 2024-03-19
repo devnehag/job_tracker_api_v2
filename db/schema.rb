@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_19_123747) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_19_125543) do
+  create_table "checklist_items", force: :cascade do |t|
+    t.string "task"
+    t.integer "checklist_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["checklist_id"], name: "index_checklist_items_on_checklist_id"
+  end
+
   create_table "checklists", force: :cascade do |t|
     t.string "title"
     t.string "details"
@@ -45,6 +53,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_123747) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "checklist_items", "checklists"
   add_foreign_key "checklists", "jobs"
   add_foreign_key "jobs", "users"
 end
